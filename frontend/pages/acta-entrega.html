@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<!--
+  Acta de Entrega — Gestión de Actas (Coltefinanciera).
+  Frontend estático; la URL del backend se define en js/config.js (API_URL).
+  En desarrollo se sirve con Live Server (puerto 5501).
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acta de Entrega</title>
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-corporativo">
+        <div class="navbar-left">
+
+            <div class="logo-container">
+
+                <img
+                    src="../img/logo.png"
+                    alt="Logo Coltefinanciera"
+                    class="navbar-logo">
+
+            </div>
+
+            <div class="navbar-title">
+                Gestión de Actas
+            </div>
+
+        </div>
+
+        <div class="navbar-right">
+
+            <a
+                href="acta-entrega.html"
+                class="nav-link active">
+                Acta de Entrega
+            </a>
+
+            <a
+                href="acta-devolucion.html"
+                class="nav-link">
+                Acta de Devolución
+            </a>
+
+            <a
+                href="acta-formateo.html"
+                class="nav-link">
+                Acta de Formateo Seguro
+            </a>
+
+        </div>
+    </nav>
+    
+
+    <main id="acta-entrega-page">
+
+        <div class="page-header">
+
+            <div class="hero-header">
+
+            <div class="hero-icon">
+
+                📄
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Acta de Entrega
+                </h1>
+
+                <p>
+                    Generación de actas y listas de chequeo para activos tecnológicos.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="acta-layout" class="three-panel-layout">
+
+            <!-- ========================= -->
+            <!-- DATOS DEL ACTA            -->
+            <!-- ========================= -->
+
+            <div class="group">
+
+                <section
+                    id="datos-acta-section"
+                    class="card transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.01]">
+
+                    <div class="card-body p-3">
+
+                        <h2 class="card-title mb-4">
+                            Información del Acta
+                        </h2>
+
+                        <div class="card border border-base-300">
+
+                            <div class="card-body p-3">
+
+                                <h3 class="text-lg font-semibold mb-4">
+                                    Datos del Acta
+                                </h3>
+
+                                <div class="input-floating w-full mb-1">
+                                    <input
+                                        type="text"
+                                        id="fecha"
+                                        class="input"
+                                        placeholder="DD-MM-YYYY" />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="fecha">
+                                        Fecha
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+                                    
+                                </div>
+
+                                <div class="input-floating w-full mb-1">
+                                    <input
+                                        type="text"
+                                        id="entregado_a"
+                                        class="input"   
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="entregado_a">
+                                        Nombre de quien recibe
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+
+                                <div class="input-floating w-full mb-1">
+
+                                    <input
+                                        type="text"
+                                        id="cargo_recibe"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="cargo_recibe">
+
+                                        Cargo de quien recibe
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full mb-1">
+
+                                    <input
+                                        type="text"
+                                        id="entregado_por"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="entregado_por">
+
+                                        Nombre de quien entrega
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full mb-1">
+
+                                    <input
+                                        type="text"
+                                        id="cargo_entrega"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="cargo_entrega">
+
+                                        Cargo de quien entrega
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full">
+
+                                    <input
+                                        type="text"
+                                        id="asunto"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="asunto">
+
+                                        Asunto
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- EQUIPOS                   -->
+            <!-- ========================= -->
+
+            <div class="group">
+
+                <section
+                    id="equipos-section"
+                    class="card transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.01]">
+
+                    <div class="card-body p-3">
+
+                        <div class="section-header">
+
+                            <h2 class="card-title">
+                                Equipos
+                            </h2>
+
+                            <button
+                                type="button"
+                                id="btn-add-equipo"
+                                class="btn btn-outline">
+
+                                Añadir Equipo
+
+                            </button>
+
+                        </div>
+
+                        <div id="equipos-container">
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- HARDWARE / SOFTWARE       -->
+            <!-- ========================= -->
+
+            <div class="group">
+
+                <section
+                    id="hardware-section"
+                    class="card transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.01]">
+
+                    <div class="card-body p-3">
+
+                        <div class="section-header">
+
+                            <h2 class="card-title">
+                                Hardware y Software
+                            </h2>
+
+                            <button
+                                type="button"
+                                id="btn-add-hardware"
+                                class="btn btn-outline">
+
+                                Añadir Hardware
+
+                            </button>
+
+                        </div>
+
+                        <div id="hardware-container">
+
+                            <!--
+                            Los registros hardware/software
+                            se agregan dinámicamente aquí.
+                            -->
+
+                        </div>
+                        
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- LISTA DE CHEQUEO          -->
+        <!-- ========================= -->
+
+        <section id="checklist-section">
+            <div class="group">
+
+                    <section
+                        id="checklist-card"
+                        class="card">
+
+                        <div class="card-body">
+
+                            <div class="section-header">
+
+                                <h2 class="card-title">
+                                    Lista de Chequeo
+                                </h2>
+
+                            </div>
+
+                            <div id="checklist-container">
+
+                                <div class="input-floating w-full mb-3">
+
+                                    <input
+                                        type="text"
+                                        id="responsable_verificacion"
+                                        class="input"
+                                        placeholder=" "
+                                        readonly />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="responsable_verificacion">
+
+                                        Responsable de la verificación
+
+                                    </label>
+
+                                </div>
+
+                                <div class="input-floating w-full mb-3">
+
+                                    <input
+                                        type="text"
+                                        id="numero_sac"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="numero_sac">
+
+                                        Número SAC
+
+                                    </label>
+
+                                </div>
+
+                                <h3 class="check-group-title">
+                                    Sistema Operativo
+                                </h3>
+
+                                <div id="so-container">
+
+                                    <div class="flex flex-col gap-2 mb-4">
+
+                                        <div class="so-radios">
+                                            <div class="flex items-center gap-1">
+
+                                                <input
+                                                    type="radio"
+                                                    name="so"
+                                                    class="radio radio-inset radio-primary"
+                                                    id="so-win10"
+                                                    value="Windows 10" />
+
+                                                <label
+                                                    class="label-text text-base"
+                                                    for="so-win10">
+
+                                                    Windows 10
+
+                                                </label>
+
+                                            </div>
+
+                                            <div class="flex items-center gap-1">
+
+                                                <input
+                                                    type="radio"
+                                                    name="so"
+                                                    class="radio radio-inset radio-primary"
+                                                    id="so-win11"
+                                                    value="Windows 11" />
+
+                                                <label
+                                                    class="label-text text-base"
+                                                    for="so-win11">
+
+                                                    Windows 11
+
+                                                </label>
+
+                                            </div>
+
+                                            <div class="flex items-center gap-1">
+
+                                                <input
+                                                    type="radio"
+                                                    name="so"
+                                                    class="radio radio-inset radio-primary"
+                                                    id="so-macos"
+                                                    value="Mac OS" />
+
+                                                <label
+                                                    class="label-text text-base"
+                                                    for="so-macos">
+
+                                                    Mac OS
+
+                                                </label>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                    </div>
+                                    
+                                </div>
+
+                                <!-- SEGURIDAD -->
+                                <div class="flex gap-2 mb-4">
+
+                                    <button
+                                        type="button"
+                                        id="btn-marcar-todo"
+                                        class="btn btn-primary">
+
+                                        ✅ Marcar Todo
+
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        id="btn-desmarcar-todo"
+                                        class="btn btn-outline">
+
+                                        ❌ Desmarcar Todo
+
+                                    </button>
+
+                                </div>
+
+                                <details class="check-section" open>
+
+                                    <summary>
+                                        Seguridad y Configuración
+                                    </summary>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_1">
+                                        Antivirus
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_2">
+                                        DLP
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_3">
+                                        Cifrado del Disco Duro
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_4">
+                                        Grupo Administradores
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_5">
+                                        Grupo Usuarios Avanzados
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_6">
+                                        Usuarios Locales
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_7">
+                                        Clave Administrador Local
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_8">
+                                        Último Service Pack
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_9">
+                                        Firewall Habilitado
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_10">
+                                        Validar Carpetas Compartidas
+                                    </label>
+
+                                </details>
+
+                                <!-- SOFTWARE -->
+
+                                <details class="check-section">
+
+                                    <summary>
+                                        Software Base
+                                    </summary>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_11">
+                                        Office Licenciado
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_12">
+                                        RestrictAnonymous / Null Sessions
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_13">
+                                        Adobe Reader
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_14">
+                                        Ultra VNC
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_15">
+                                        Java JRE
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_16">
+                                        7-ZIP
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_17">
+                                        PDF Creator
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_18">
+                                        Oracle 6i
+                                    </label>
+
+                                </details>
+
+                                <!-- SISTEMA -->
+
+                                <details class="check-section">
+
+                                    <summary>
+                                        Sistema Operativo
+                                    </summary>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_19">
+                                        NetBIOS Deshabilitado
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_20">
+                                        Wake On LAN
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_21">
+                                        Actualización Java Desactivada
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_22">
+                                        Actualización Adobe Reader Desactivada
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_23">
+                                        HostName
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_24">
+                                        OneDrive
+                                    </label>
+
+                                </details>
+
+                                <!-- CONECTIVIDAD -->
+
+                                <details class="check-section">
+
+                                    <summary>
+                                        Conectividad
+                                    </summary>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_25">
+                                        VPN
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_26">
+                                        Conexión RDP
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_27">
+                                        Impresoras
+                                    </label>
+
+                                </details>
+
+                                <!-- CORPORATIVO -->
+
+                                <details class="check-section">
+
+                                    <summary>
+                                        Aplicaciones Corporativas
+                                    </summary>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_28">
+                                        Contenedor Directorio Activo
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_29">
+                                        Cobis Impresora / Scanner
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_30">
+                                        Cisco
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_31">
+                                        Cobis
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_32">
+                                        OCS Inventory
+                                    </label>
+
+                                </details>
+
+                                <!-- AREAS ESPECIFICAS -->
+
+                                <details class="check-section">
+
+                                    <summary>
+                                        Áreas Específicas
+                                    </summary>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_33">
+                                        Comercio Exterior
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_34">
+                                        Tesorería
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_35">
+                                        Riesgo Operativo
+                                    </label>
+
+                                    <label class="check-item">
+                                        <input type="checkbox" id="chk_36">
+                                        Contabilidad
+                                    </label>
+
+                                </details>
+
+                                <div class="textarea-floating w-full mt-4">
+                                    <textarea
+                                        id="observaciones"
+                                        class="textarea"
+                                        placeholder=" "
+                                    ></textarea>
+
+                                    <label
+                                        class="textarea-floating-label border-blue-500 focus:border-blue-500 focus:outline-none"
+                                        for="observaciones"
+                                    >
+                                        Observaciones
+                                    </label>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </div>
+        </section>
+
+
+        <!-- ========================= -->
+        <!-- ACCIONES                  -->
+        <!-- ========================= -->
+
+        <section id="acciones-section">
+
+            <button
+                type="button"
+                id="btn-generar-acta"
+                onclick="generarActa()">
+
+                Generar Acta + Lista de Chequeo
+
+            </button>
+
+        </section>
+        
+
+    </main>
+
+    <!-- ========================= -->
+    <!-- NOTIFICACIONES (TOAST)    -->
+    <!-- ========================= -->
+
+    <section id="notificaciones">
+        <div id="toast-container"></div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/autocomplete.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../node_modules/flyonui/flyonui.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!--
+  Acta de Devolución — Gestión de Actas (Coltefinanciera).
+  Frontend estático; la URL del backend se define en js/config.js (API_URL).
+  En desarrollo se sirve con Live Server (puerto 5501).
+-->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acta de Devolución</title>
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-corporativo">
+        <div class="navbar-left">
+
+            <div class="logo-container">
+
+                <img
+                    src="../img/logo.png"
+                    alt="Logo Coltefinanciera"
+                    class="navbar-logo">
+
+            </div>
+
+            <div class="navbar-title">
+                Gestión de Actas
+            </div>
+
+        </div>
+
+        <div class="navbar-right">
+
+            <a
+                href="acta-entrega.html"
+                class="nav-link">
+                Acta de Entrega
+            </a>
+
+            <a
+                href="acta-devolucion.html"
+                class="nav-link active">
+                Acta de Devolución
+            </a>
+
+            <a
+                href="acta-formateo.html"
+                class="nav-link">
+                Acta de Formateo Seguro
+            </a>
+
+        </div>
+    </nav>
+    
+
+    <main id="acta-entrega-page">
+
+        <div class="page-header">
+
+            <div class="hero-header">
+
+            <div class="hero-icon">
+
+                📄
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Acta de Devolución
+                </h1>
+
+                <p>
+                    Gestión de devoluciones de activos tecnológicos.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div id="acta-layout" class="three-panel-layout">
+
+            <!-- ========================= -->
+            <!-- DATOS DEL ACTA            -->
+            <!-- ========================= -->
+
+            <div class="group">
+
+                <section
+                    id="datos-acta-section"
+                    class="card transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.01]">
+
+                    <div class="card-body p-3">
+
+                        <h2 class="card-title mb-4">
+                            Información del Acta
+                        </h2>
+
+                        <div class="card border border-base-300">
+
+                            <div class="card-body p-3">
+
+                                <h3 class="text-lg font-semibold mb-4">
+                                    Datos del Acta
+                                </h3>
+
+                                <div class="input-floating w-full mb-1">
+                                    <input
+                                        type="text"
+                                        id="fecha"
+                                        class="input"
+                                        placeholder="DD-MM-YYYY" />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="fecha">
+                                        Fecha
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+                                    
+                                </div>
+
+                                <div class="input-floating w-full mb-1">
+
+                                    <input
+                                        type="text"
+                                        id="entregado_por"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="entregado_por">
+
+                                        Nombre de quien entrega
+
+                                    </label>
+                                    
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+
+                                </div>
+
+                                
+                                <div class="input-floating w-full mb-1">
+                                    <input
+                                        type="text"
+                                        id="cedula"
+                                        class="input"   
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="cedula">
+                                        Cedula de quien entrega
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full mb-1">
+                                    <input
+                                        type="text"
+                                        id="cargo_entrega"
+                                        class="input"   
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="cargo_entrega">
+                                        Cargo de quien entrega
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+
+                                <div class="input-floating w-full mb-1">
+
+                                    <input
+                                        type="text"
+                                        id="recibido_por"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="recibido_por">
+
+                                        Nombre de quien recibe
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full mb-1">
+
+                                    <input
+                                        type="text"
+                                        id="cargo_recibe"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="cargo_recibe">
+
+                                        Cargo de quien recibe
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full">
+
+                                    <input
+                                        type="text"
+                                        id="area_recibe"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="area_recibe">
+
+                                        Area de quien recibe
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="input-floating w-full">
+
+                                    <input
+                                        type="text"
+                                        id="motivo"
+                                        class="input"
+                                        placeholder=" " />
+
+                                    <label
+                                        class="input-floating-label"
+                                        for="motivo">
+
+                                        Motivo Devolución
+
+                                    </label>
+
+                                    <span class="helper-text ps-3">
+                                        Campo obligatorio
+                                    </span>
+
+                                </div>
+
+                                <div class="textarea-floating w-full mt-4">
+                                    <textarea
+                                        id="observaciones"
+                                        class="textarea"
+                                        placeholder=" "
+                                    ></textarea>
+
+                                    <label
+                                        class="textarea-floating-label border-blue-500 focus:border-blue-500 focus:outline-none"
+                                        for="observaciones">
+                                        
+                                        Observaciones
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- EQUIPOS                   -->
+            <!-- ========================= -->
+
+            <div class="group">
+
+                <section
+                    id="equipos-section"
+                    class="card transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.01]">
+
+                    <div class="card-body p-3">
+
+                        <div class="section-header">
+
+                            <h2 class="card-title">
+                                Equipos
+                            </h2>
+
+                            <button
+                                type="button"
+                                id="btn-add-equipo"
+                                class="btn btn-outline">
+
+                                Añadir Equipo
+
+                            </button>
+
+                        </div>
+
+                        <div id="equipos-container">
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- HARDWARE / SOFTWARE       -->
+            <!-- ========================= -->
+
+            <div class="group">
+
+                <section
+                    id="hardware-section"
+                    class="card transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.01]">
+
+                    <div class="card-body p-3">
+
+                        <div class="section-header">
+
+                            <h2 class="card-title">
+                                Otros Equipos
+                            </h2>
+
+                            <button
+                                type="button"
+                                id="btn-add-hardware"
+                                class="btn btn-outline">
+
+                                Añadir Otros
+
+                            </button>
+
+                        </div>
+
+                        <div id="hardware-container">
+
+                            <!--
+                            Los elementos adicionales ("Otros Equipos")
+                            se agregan dinámicamente aquí.
+                            -->
+
+                        </div>
+                        
+
+                    </div>
+
+                </section>
+                
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- ACCIONES                  -->
+        <!-- ========================= -->
+
+        <section id="acciones-section">
+
+            <button
+                type="button"
+                id="btn-generar-acta"
+                onclick="generarDevolucion()">
+
+                Generar Acta Devolución
+
+            </button>
+
+        </section>
+        
+
+    </main>
+
+    <!-- ========================= -->
+    <!-- NOTIFICACIONES (TOAST)    -->
+    <!-- ========================= -->
+
+    <section id="notificaciones">
+        <div id="toast-container"></div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/ui.js"></script>
+    <script src="../js/autocomplete.js"></script>
+    <script src="../js/devolucion.js"></script>
+    <script src="../node_modules/flyonui/flyonui.js"></script>
+
+</body>
+</html>
