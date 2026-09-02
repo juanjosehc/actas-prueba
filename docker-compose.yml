@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    container_name: actas-backend
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env                 # GLPI_URL, GLPI_APP_TOKEN, GLPI_USER_TOKEN, CORS_ALLOWED_ORIGINS
+    environment:
+      # Spring rellena app.generated-dir desde APP_GENERATEDDIR (relaxed binding).
+      # Evita java.io.tmpdir (/tmp) que se borra al reiniciar el contenedor.
+      APP_GENERATEDDIR: /actas_generados
+    volumes:
+      - actas_generados:/actas_generados
+
+  frontend:
+    build: ./frontend
+    container_name: actas-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  actas_generados:
