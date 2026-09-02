@@ -10,17 +10,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Configuración de CORS para permitir peticiones desde el frontend.
  *
  * Orígenes permitidos:
- * - http://127.0.0.1       → Frontend servido localmente.
- * - http://localhost        → Variante localhost.
- * - http://127.0.0.1:5500  → Live Server de VS Code.
- * - http://localhost:5500   → Live Server de VS Code (variante).
- * - http://127.0.0.1:5501  → Live Server de VS Code (puerto actual del frontend).
- * - http://localhost:5501   → Live Server de VS Code (variante, puerto actual del frontend).
- * - http://127.0.0.1:8080   → Servidor alternativo.
- * - http://localhost:8080    → Servidor alternativo (variante).
+ * - local (Live Server, etc.) y producción interna.
+ * - https://*.vercel.app  → frontend estático desplegado en Vercel
+ *   (wildcard cubre dominio de proyecto y previews; no requiere conocer
+ *   el subdominio exacto). Se puede restringir vía CORS_ALLOWED_ORIGINS.
  *
- * Métodos permitidos: todos (*).
- * Headers permitidos: todos (*).
+ * Métodos permitidos: todos (*), incluye GET, POST y OPTIONS (preflight).
+ * Headers permitidos: todos (*), incluye Authorization (Bearer token).
  * Headers expuestos: Content-Disposition (necesario para descarga de ZIP).
  */
 @Configuration
@@ -39,8 +35,10 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(allowedOrigins.split(","))
-                        .allowedMethods("*")
+                        // allowedOriginPatterns (no allowedOrigins): admite
+                        // wildcards como https://*.vercel.app.
+                        .allowedOriginPatterns(allowedOrigins.split(","))
+                        .allowedMethods("GET", "POST", "OPTIONS")
                         .allowedHeaders("*")
                         .exposedHeaders("Content-Disposition");
             }
