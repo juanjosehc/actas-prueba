@@ -7,9 +7,10 @@
 # La URL base del frontend se define en frontend/js/config.js (API_URL).
 
 # --- Servidor ---
-# Puerto del backend. DEBE coincidir con API_URL de frontend/js/config.js.
+# Puerto del backend. En local usa 8001; en Render lo asigna la variable
+# PORT del servicio (Spring Boot no mapea PORT solo: hay que enlazarla).
 server:
-  port: 8001
+  port: ${PORT:8001}
 
 # --- Integración GLPI ---
 # URL base de la instancia GLPI (sin barra al final).
