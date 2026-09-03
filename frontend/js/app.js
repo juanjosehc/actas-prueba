@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document
         .getElementById("btn-marcar-todo")
-        ?.addEventListener("click", marcarTodosLosChecks);
+        ?.addEventListener("click", marcarPredeterminado);
 
     document
         .getElementById("btn-desmarcar-todo")
@@ -932,17 +932,34 @@ function cerrarTodosLosAccordions() {
 }
 
 /**
- * Marca todos los checkboxes del checklist (chk_1 a chk_36).
- * También abre todos los acordeones para que el usuario
- * vea las opciones marcadas.
+ * Marca la configuración más común usada por los técnicos:
+ * TODOS los checks del checklist salvo los que son excepción
+ * según el caso del equipo. También abre todos los acordeones
+ * para que el usuario vea las opciones marcadas.
  */
-function marcarTodosLosChecks() {
+function marcarPredeterminado() {
+
+    // Ítems que quedan DESMARCADOS (excepciones según el equipo):
+    // en "Sistema Operativo": NetBIOS, Wake On LAN, actualizaciones Java/Adobe.
+    // en "Aplicaciones Corporativas": OCS Inventory.
+    // "Áreas Específicas": los 4 checks (dependen del área de negocio).
+    const DEFAULT_EXCLUIDOS = new Set([
+        "chk_19", // NetBIOS Deshabilitado
+        "chk_20", // Wake On LAN
+        "chk_21", // Actualización Java Desactivada
+        "chk_22", // Actualización Adobe Reader Desactivada
+        "chk_32", // OCS Inventory
+        "chk_33", // Área Específica: Comercio Exterior
+        "chk_34", // Área Específica: Tesorería
+        "chk_35", // Área Específica: Riesgo Operativo
+        "chk_36"  // Área Específica: Contabilidad
+    ]);
 
     document
         .querySelectorAll('input[type="checkbox"][id^="chk_"]')
         .forEach(check => {
 
-            check.checked = true;
+            check.checked = !DEFAULT_EXCLUIDOS.has(check.id);
 
         });
 
