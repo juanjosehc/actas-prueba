@@ -27,7 +27,8 @@ COPY certs/geotrust-tls-rsa-ca-g1.der /certs/geotrust-tls-rsa-ca-g1.der
 RUN keytool -cacerts -storepass changeit -importcert -noprompt \
     -alias geotrust-tls-rsa-ca-g1 -file /certs/geotrust-tls-rsa-ca-g1.der
 
-# El puerto real lo asigna Render vía $PORT (ver application.yml: ${PORT:8001}).
-EXPOSE 8001
+# Puerto informativo (el real lo fija server.port de application.yml,
+# default 8005, pisable con la env var PORT).
+EXPOSE 8005
 
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

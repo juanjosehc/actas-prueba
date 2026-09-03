@@ -296,3 +296,53 @@ docker compose up -d --build frontend
 - **Volumen de actas crece sin límite.** El sistema no elimina ZIP/DOCX antiguos. Programar una limpieza periódica del volumen `actas_generados` (delete de archivos con más de N días) según la política de la organización.
 - **Timeouts GLPI:** 10 s de conexión y 30 s por request (`GlpiClient`). Si la red hacia GLPI es lenta, los buscadores pueden devolver vacío en lugar de esperar; verificar antes de escalar a red pública.
 - **Plantillas dentro del JAR.** `app.templates-dir=classpath:plantillas`; las plantillas viajan compiladas en el JAR. Para personalizarlas sin recompilar, montar una carpeta en el contenedor y apuntar `APP_TEMPLATESDIR` (relaxed binding de `app.templates-dir`) a esa ruta con los mismos nombres de archivo (ver `docs/GUIA_EDITAR_PLANTILLAS.md`).
+---
+
+## 11. Frontend en Vercel + backend en servidor interno
+
+Topología elegida: el frontend estático vive en Vercel (`https://actas-prueba.vercel.app`)
+y el backend Spring Boot corre en un servidor dentro de la red corporativa, donde
+GLPI (`sac-i.connser.com.co` → `10.87.4.16`) es alcanzable. **Render no es viable
+para el backend: GLPI resuelve solo en redes internas (NXDOMAIN en DNS público).**
+
+### 11.1 Pasos
+
+1. **Servidor interno** (Windows/Linux con Docker): crear `.env` en la raíz del repo
+   (copiar `.env.example`) con:
+   ```dotenv
+   GLPI_URL=https://sac-i.connser.com.co/glpi/apirest.php
+   GLPI_APP_TOKEN=...
+   GLPI_USER_TOKEN=...
+   CORS_ALLOWED_ORIGINS=https://actas-prueba.vercel.app
+   ```
+   No hace falta el frontend nginx; solo el backend:
+   ```powershell
+   cd backend
+   mvn clean package -DskipTests
+   cd ..
+   docker compose up -d --build backend
+   ```
+2. **Exponer el backend** con una URL pública HTTPS hacia el servidor (solo el
+   puerto 8001): Cloudflare Tunnel, Tailscale Funnel, o reverse proxy + puerto
+   abierto con firewall restringido al origen. No se requiere puerto 80/8001
+   abierto a Internet si se usa túnel.
+3. **Frontend Vercel**: en `frontend/js/config.js`, reemplazar `BACKEND_URL` por
+   la URL pública del backend del paso 2. Volver a desplegar en Vercel.
+   (No hay `actas-glpi-1.0.0.jar` subido al repo: el backend se compila con
+   `mvn clean package` en el servidor antes de `docker compose`.)
+4. **Verificar**:
+   ```bash
+   curl -s https://BACKEND_URL_PUBLICA/equipo/SIN-SERIAL
+   curl -s "https://BACKEND_URL_PUBLICA/usuarios?texto=jul"
+   ```
+   Y desde el navegador: abrir la app Vercel, buscar serial y persona.
+
+### 11.2 Por qué así
+
+- GLPI es privado; el backend debe correr donde GLPI esté alcanzable.
+- CORS: el backend (Spring `CorsConfig`) usa `allowedOriginPatterns` con
+  `https://*.vercel.app` en el default; el preflight `OPTIONS` se resuelve solo.
+  Puede restringirse más en `CORS_ALLOWED_ORIGINS`.
+- Backend sin Spring Security ni JWT (verificado en `pom.xml`): no hay endpoints
+  protegidos ni Bearer que enviar. Si se agrega auth futuro, los headers ya pasan
+  (`allowedHeaders("*")`).

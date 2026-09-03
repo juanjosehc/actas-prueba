@@ -4,7 +4,7 @@ services:
     container_name: actas-backend
     restart: unless-stopped
     ports:
-      - "8001:8001"
+      - "8005:8005"
     env_file:
       - .env                 # GLPI_URL, GLPI_APP_TOKEN, GLPI_USER_TOKEN, CORS_ALLOWED_ORIGINS
     environment:
