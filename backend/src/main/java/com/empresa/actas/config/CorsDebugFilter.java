@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -31,7 +32,7 @@ public class CorsDebugFilter extends OncePerRequestFilter {
 
     private final CorsConfigurationSource corsSource;
 
-    public CorsDebugFilter(CorsConfigurationSource corsSource) {
+    public CorsDebugFilter(@Qualifier("corsConfigurationSource") CorsConfigurationSource corsSource) {
         this.corsSource = corsSource;
     }
 
