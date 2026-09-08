@@ -223,8 +223,15 @@ async function buscarEquipoBloque(bloque) {
 
     try {
 
+        const url =
+            `${API_URL}/equipo/${serial}`;
+
+        console.log("[Equipo] URL:", url);
+
         const response =
-            await fetch(`${API_URL}/equipo/${serial}`);
+            await fetch(url);
+
+        console.log("[Equipo] HTTP:", response.status);
 
         if (!response.ok) {
             throw new Error("Respuesta no válida del servidor");
@@ -232,6 +239,8 @@ async function buscarEquipoBloque(bloque) {
 
         const data =
             await response.json();
+
+        console.log("[Equipo] JSON:", data);
 
         bloque.querySelector("[data-marca]").value =
             data.marca ?? "";
@@ -253,9 +262,21 @@ async function buscarEquipoBloque(bloque) {
                 "success"
             );
 
+        } else {
+
+            console.log(
+                "[Equipo] GLPI no devolvió datos (campos vacíos) para serial:",
+                serial
+            );
+
         }
 
     } catch (error) {
+
+        console.error(
+            "[Equipo] Error consultando:",
+            error.message || error
+        );
 
         mostrarMensaje(
             "Error al consultar información del equipo",

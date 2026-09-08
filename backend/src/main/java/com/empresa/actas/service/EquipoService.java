@@ -2,6 +2,8 @@ package com.empresa.actas.service;
 
 import com.empresa.actas.dto.response.EquipoResponse;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -29,6 +31,8 @@ import java.util.regex.Pattern;
  */
 @Service
 public class EquipoService {
+
+    private static final Logger log = LoggerFactory.getLogger(EquipoService.class);
 
     private final GlpiClient glpiClient;
 
@@ -88,6 +92,7 @@ public class EquipoService {
             return new EquipoResponse(marca, tipo, modeloActa);
 
         } catch (Exception e) {
+            log.error("Error consultando equipo por serial [{}]: {}", serial, e.getMessage(), e);
             return new EquipoResponse("", "", "");
         }
     }

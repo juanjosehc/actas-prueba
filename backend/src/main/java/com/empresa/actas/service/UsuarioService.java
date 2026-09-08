@@ -2,6 +2,8 @@ package com.empresa.actas.service;
 
 import com.empresa.actas.dto.response.UsuarioResponse;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
@@ -36,6 +38,8 @@ import java.util.Map;
  */
 @Service
 public class UsuarioService {
+
+    private static final Logger log = LoggerFactory.getLogger(UsuarioService.class);
 
     private final GlpiClient glpiClient;
 
@@ -145,6 +149,7 @@ public class UsuarioService {
             }
 
         } catch (Exception e) {
+            log.error("Error buscando usuarios con texto [{}]: {}", texto, e.getMessage(), e);
             return resultados;
         }
 

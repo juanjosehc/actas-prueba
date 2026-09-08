@@ -272,11 +272,18 @@ function initAutocomplete(input, opciones = {}) {
 
         try {
 
+            const url =
+                `${USUARIOS_API_URL}?texto=${encodeURIComponent(texto)}`;
+
+            console.log("[Usuarios] URL:", url);
+
             const respuesta =
                 await fetch(
-                    `${USUARIOS_API_URL}?texto=${encodeURIComponent(texto)}`,
+                    url,
                     { signal: solicitudActual.signal }
                 );
+
+            console.log("[Usuarios] HTTP:", respuesta.status);
 
             if (!respuesta.ok) {
                 throw new Error(
@@ -286,6 +293,8 @@ function initAutocomplete(input, opciones = {}) {
 
             const items =
                 await respuesta.json();
+
+            console.log("[Usuarios] JSON:", items);
 
             if (!Array.isArray(items)) {
                 throw new Error(
@@ -302,6 +311,11 @@ function initAutocomplete(input, opciones = {}) {
             if (error.name === "AbortError") {
                 return;
             }
+
+            console.error(
+                "[Usuarios] Error consultando:",
+                error.message || error
+            );
 
             cerrarLista();
 
